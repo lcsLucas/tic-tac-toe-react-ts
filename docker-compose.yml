@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  #node and npm
+  app:
+    container_name: tictoe
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    # mem_limit: 256m
+    working_dir: /var/www/
+    ports:
+      - "3000:5173"
+    volumes:
+      - ./:/var/www/
+    networks:
+      - net-tictoe
+networks:
+  net-tictoe:
+    driver: bridge
