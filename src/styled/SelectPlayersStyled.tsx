@@ -18,11 +18,10 @@ export const WrapperCharacters = styled.div`
   position: relative;
 
   input[type="radio"] {
-    position: absolute;
     pointer-events: none;
+    width: 0;
+    height: 0;
     opacity: 0;
-    top: -99999px;
-    left: -99999px;
 
     &:checked + label {
       background: lightblue;
