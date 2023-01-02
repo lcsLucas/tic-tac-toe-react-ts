@@ -15,7 +15,7 @@ export const BoardItemStyled = styled.div`
   aspect-ratio: 1;
   position: relative;
   width: 33.3333%;
-  transition: all 0.2s;
+  transition: all 0.15s;
 
   &::before {
     content: "";
@@ -24,7 +24,6 @@ export const BoardItemStyled = styled.div`
     right: -1px;
     top: 0;
     position: absolute;
-    transition: all 0.2s;
   }
 
   &::after {
@@ -34,7 +33,6 @@ export const BoardItemStyled = styled.div`
     left: 0;
     bottom: -1px;
     position: absolute;
-    transition: all 0.2s;
   }
 
   &:nth-child(1),

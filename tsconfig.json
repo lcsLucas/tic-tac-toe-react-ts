@@ -33,7 +33,13 @@
       "@/*": ["src/*", "src/styled/*", "types/*"]
     }
   },
-  "include": ["src", "src/styled/*", "jest.setup.ts", "vite.config.ts"],
+  "include": [
+    "src",
+    "src/styled/*",
+    "jest.setup.ts",
+    "vite.config.ts",
+    "types"
+  ],
   "exclude": ["node_modules", "build", "**/*.spec.ts"],
   "plugins": [
     {
