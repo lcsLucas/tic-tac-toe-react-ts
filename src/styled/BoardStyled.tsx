@@ -8,6 +8,16 @@ export const BoardStyled = styled.div`
   align-items: center;
   justify-content: space-between;
   aspect-ratio: 1;
+  transition: all 0.25s;
+
+  &.loading {
+    opacity: 0.35;
+    cursor: wait;
+
+    * {
+      pointer-events: none;
+    }
+  }
 `;
 
 export const BoardItemStyled = styled.div`

@@ -28,6 +28,10 @@ export const WrapperCharacters = styled.div`
       border-color: blue !important;
     }
   }
+
+  label:hover {
+    border-color: blue;
+  }
 `;
 
 export const Character = styled.label`
@@ -41,8 +45,4 @@ export const Character = styled.label`
   border: 5px solid transparent;
   background: transparent;
   transition: all 0.1s;
-
-  &:hover {
-    border-color: blue;
-  }
 `;

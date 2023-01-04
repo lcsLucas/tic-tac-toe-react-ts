@@ -14,8 +14,21 @@ type MovesType = {
   position: PositionType;
 }[];
 
+type BoardType = [
+  boolean,
+  boolean,
+  boolean,
+  boolean,
+  boolean,
+  boolean,
+  boolean,
+  boolean,
+  boolean
+];
+
 export type StateGameType = {
   state: typeof AvailableStatesGame[keyof typeof AvailableStatesGame];
+  board: BoardType;
   moves: MovesType;
   players: {
     [0]: PlayerType;
@@ -28,7 +41,11 @@ export type StateGameContextType = {
   handleChangeStateGame: (
     newState: typeof AvailableStatesGame[keyof typeof AvailableStatesGame]
   ) => void;
-  handleChangePlayers: (index: 0 | 1, player: string) => void;
+  handleChangePlayers: (index: 0 | 1, player: PlayerType) => void;
+  handleMakeMove: () => void;
+  currentPlayer?: () => 0 | 1;
+  getPlayer?: (player: 0 | 1) => PlayerType;
+  getBoard?: () => BoardType;
 };
 
 export type StateGameProps = { children: React.ReactNode };
