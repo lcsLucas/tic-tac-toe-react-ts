@@ -1,10 +1,15 @@
+import React from "react";
+
 import {
   StateGameContextType,
   AvailableStatesGame,
   StateGameProps,
   StateGameType,
+  PlayerType,
+  BoardType,
+  PossibilityWinning,
+  TuplePossibilityWinning,
 } from "../../types/StateGameTypes";
-import React from "react";
 
 const _initializedObjStateGame: StateGameType = {
   state: AvailableStatesGame.Uninitialized_Game,
@@ -15,9 +20,6 @@ const _initializedObjStateGame: StateGameType = {
 
 export const StateGameContext = React.createContext<StateGameContextType>({
   provider: _initializedObjStateGame,
-  handleChangeStateGame: () => {},
-  handleChangePlayers: () => {},
-  handleMakeMove: () => {},
 });
 
 export const StateGameProvider = ({ children }: StateGameProps) => {
@@ -46,17 +48,81 @@ export const StateGameProvider = ({ children }: StateGameProps) => {
     });
   };
 
-  const handleMakeMove = () => {
-    setProvider(v => ({
-      ...v,
-      moves: [
-        ...v.moves,
-        {
-          player: v.players[0],
-          position: Math.random() * 10 + 1,
+  const handleMakeMove = (position: keyof BoardType, player: PlayerType) => {
+    setProvider(v => {
+      const newV = {
+        ...v,
+        board: {
+          ...v.board,
+          [position]: player,
         },
-      ],
-    }));
+        moves: [
+          ...v.moves,
+          {
+            player,
+            position,
+          },
+        ],
+      };
+
+      const winning_move = handleCheckWinner(newV.board);
+
+      if (winning_move) {
+        return {
+          ...newV,
+          winner: {
+            player,
+            move: winning_move,
+          },
+          state: AvailableStatesGame.Finished_Game,
+        };
+      }
+
+      if (handleCheckFinishGame(newV.board)) {
+        return {
+          ...newV,
+          state: AvailableStatesGame.Finished_Game,
+        };
+      }
+
+      return newV;
+    });
+  };
+
+  const handleCheckFinishGame = (board: BoardType) => {
+    return Object.values(board).reduce(
+      (prev, cur) => (!cur ? cur : prev),
+      true
+    );
+  };
+
+  const handleCheckWinner = (board: BoardType) => {
+    let has_winner: TuplePossibilityWinning | null = null;
+    let i = 0;
+
+    while (i < PossibilityWinning.length && !has_winner) {
+      const currentPossibility = PossibilityWinning[i];
+
+      const result = [...currentPossibility].reduce(
+        (prev: any, cur: unknown) => {
+          return [...prev, board[cur as keyof BoardType]];
+        },
+        []
+      );
+
+      const stat_check_winner =
+        !!result[0] && result[0] === result[1] && result[0] === result[2];
+
+      if (stat_check_winner) has_winner = currentPossibility;
+
+      i++;
+    }
+
+    return has_winner;
+  };
+
+  const handleCheckPositionEmpty = (position: keyof BoardType) => {
+    return !provider.board[position];
   };
 
   const currentPlayer = () =>
@@ -74,6 +140,7 @@ export const StateGameProvider = ({ children }: StateGameProps) => {
       value={{
         provider,
         handleChangeStateGame,
+        handleCheckPositionEmpty,
         handleChangePlayers,
         handleMakeMove,
         currentPlayer,

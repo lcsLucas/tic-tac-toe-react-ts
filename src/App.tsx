@@ -1,6 +1,7 @@
 import { MapStateGameType, StepsGameType } from "../types/StateGameTypes";
 import Board from "./components/Board";
 import InitializeGame from "./components/InitializeGame/InitializeGame";
+import ResultGame from "./components/ResultGame";
 import SelectPlayers from "./components/SelectPlayers";
 import { useStateGame } from "./contexts/StateGameContext";
 import {
@@ -27,8 +28,8 @@ export default function App() {
       component: <Board />,
     },
     "3": {
-      description: "[New Game]",
-      component: <h1>Finished Game: 🏆 Player 1 Winner 🏆</h1>,
+      description: "[Game Over]",
+      component: <ResultGame />,
     },
   };
 

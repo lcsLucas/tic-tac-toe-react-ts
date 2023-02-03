@@ -35,12 +35,12 @@ export function SelectPlayers() {
   };
 
   const handleChangeSelectedCharacter = () => {
-    handleChangePlayers(selected, refSelected.current);
+    handleChangePlayers!(selected, refSelected.current);
 
     if (selected === 0) {
       changeCharacter("reset");
     } else {
-      handleChangeStateGame(2);
+      handleChangeStateGame!(2);
     }
   };
 

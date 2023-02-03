@@ -21,7 +21,11 @@ export const BoardStyled = styled.div`
 `;
 
 export const BoardItemStyled = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  font-size: 5rem;
   aspect-ratio: 1;
   position: relative;
   width: 33.3333%;
